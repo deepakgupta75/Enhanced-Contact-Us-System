@@ -39,7 +39,7 @@ const Contact = () => {
     } else {
       try {
         // Send form data to API
-        const response = await fetch("http://localhost:5000/api/contact", {
+        const response = await fetch("https://enhanced-contact-us-system-11.onrender.com/api/contact", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
