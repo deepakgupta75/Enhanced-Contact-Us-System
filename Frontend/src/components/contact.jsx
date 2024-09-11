@@ -39,7 +39,7 @@ const Contact = () => {
     } else {
       try {
         // Send form data to API
-        const response = await fetch("https://enhanced-contact-us-system.vercel.app/api/contact", {
+        const response = await fetch("http://localhost:5000/api/contact", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
