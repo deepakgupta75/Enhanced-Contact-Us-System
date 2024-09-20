@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 
 
 // POST route for submitting a contact form
-router.post('/', async (req, res) => {
+router.post('/api/contact', async (req, res) => {
     const { name, email, phone_number, topic, message } = req.body;
   
     try {
