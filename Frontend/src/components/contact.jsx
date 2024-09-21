@@ -38,6 +38,8 @@ const Contact = () => {
     setErrors(validationErrors);
   } else {
     try {
+            console.log("Form data being submitted:", formData); // Add this log for debugging
+
       const response = await fetch('https://enhanced-contact-us-system-14.onrender.com/api/contact', {
         method: "POST",
         headers: {
