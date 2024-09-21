@@ -30,42 +30,44 @@ const Contact = () => {
     return newErrors;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-    } else {
-      try {
-        // Send form data to API
-        const response = await fetch('https://enhanced-contact-us-system-14.onrender.com/api/contact', {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+  const validationErrors = validateForm();
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors);
+  } else {
+    try {
+      const response = await fetch('https://enhanced-contact-us-system-14.onrender.com/api/contact', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Form data submitted successfully:", data);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          topic: "",
+          message: "",
         });
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log("Form data submitted successfully:", data);
-          setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            topic: "",
-            message: "",
-          });
-          alert("Query submitted successfully!");
-        } else {
-          console.error("Error submitting form:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error submitting form:", error);
+        alert("Query submitted successfully!");
+      } else {
+        const errorData = await response.json();
+        console.error("Error submitting form:", errorData);
+        alert(`Error: ${errorData.error || 'An error occurred'}`);
       }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Error submitting form. Please try again.");
     }
-  };
+  }
+};
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
